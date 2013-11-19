@@ -12,7 +12,7 @@ public class LibraryTest {
 		// methods so that we only do once
 		newBook = new  Book("AN Author","A Great Read");
 		newUser = new LibraryUser("User1");
-		newLibrary = new Library("harpenden");
+		newLibrary = new Library("Harpenden");
 	}
 	
 	@Test
@@ -29,7 +29,7 @@ public class LibraryTest {
 	
 	@Test
 	public void testLibraryIDisNotSet() {
-		//test that the correct user has been created
+		//test that the library ID has not yet been set
 		assertEquals(0, newUser.getLibraryID());
 	}
 		
@@ -37,7 +37,9 @@ public class LibraryTest {
 	public void testLibraryIDisSetbyRegister() {
 		//test that library ID can be set via registering with the library
 		newUser.register(newLibrary);
-		assertEquals(1, newUser.getLibraryID());
+		assertEquals(94, newUser.getLibraryID());
+		newUser.register(newLibrary);
+		assertEquals(95, newUser.getLibraryID());
 	}
 	
 	@Test
