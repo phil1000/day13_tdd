@@ -1,4 +1,4 @@
-import java.lang.reflect.*;
+import java.lang.reflect.*; // need this in order to be able to create the getAll class
 
 public class HashMap<K,V> {
 
@@ -51,6 +51,7 @@ public class HashMap<K,V> {
 		// of the the type cls where class is passed in from the calling program
 		// for example, if I want to create an array of Books, the calling program
 		// should contain books.getAll(Book.class)
+		// n.b. needed to import java.lang.reflect.*
 		T[] valueArray = (T[]) Array.newInstance(cls, currentNumberofNodes);
 		int j=0;
 		for (int i=0;i<nodes.length;i++) {

@@ -20,12 +20,12 @@ public class LibraryUser {
 		this.LibraryID=library.getID(this);
 	}
 	
-	public void borrow(String author, String name) {
-		Book newBook = library.takeBook(author, name);
+	public void borrow(String author, String bookName) {
+		library.takeBook(this.name, author, bookName);
 	}
 	
-	public void returnBook(String author, String name) {
-		library.returnBook(author, name);
+	public void returnBook(String author, String bookName) {
+		library.returnBook(this.name, author, bookName);
 	}
 	
 	public Library getLibrary() {

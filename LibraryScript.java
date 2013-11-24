@@ -9,24 +9,30 @@ public class LibraryScript {
 		this.addBooks();
 		this.addUsers();
 		
-		myLibrary.printAllBooks();
-		myLibrary.printAllUsers();
+		Book[] books = myLibrary.getAllBooks();
+		myLibrary.printAllBooks(books);
+		LibraryUser[] users = myLibrary.getAllUsers();
+		myLibrary.printAllUsers(users);
 		
-		/*
-		allUsers[0].borrow("Aimee","My life");
-		allUsers[0].borrow("Flora","What does a fox say");
-		this.printAllBooks(allBooks);
+		// start borrowing books
 		
-		Book[] allUserBooks = allUsers[0].booksBorrowed();
-		System.out.println("User " + allUsers[0].getName() + " has borrowed: ");
-		for (int i=0;i<allUserBooks.length;i++) {
-			System.out.println(allUserBooks[i].getAuthor() + ":" + allUserBooks[i].getBookName());
-		}
+		users[0].borrow(books[0].getAuthor(), books[0].getBookName());
+		users[0].borrow(books[1].getAuthor(), books[1].getBookName());
+		users[0].borrow(books[2].getAuthor(), books[2].getBookName());
+		// following should get rejected as book already borrowed
+		users[1].borrow(books[0].getAuthor(), books[0].getBookName()); 
+		// following should be fine
+		users[1].borrow(books[3].getAuthor(), books[3].getBookName());
 		
-		allUsers[0].returnBook("Aimee","My life");
-		allUsers[0].returnBook("Flora","What does a fox say");
-		this.printAllBooks(allBooks);
-		*/
+		myLibrary.printAllBorrowers();
+		
+		System.out.println("\n\n");
+		System.out.println("Books about to be returned");
+		
+		users[0].returnBook(books[0].getAuthor(), books[0].getBookName());
+		users[0].returnBook(books[1].getAuthor(), books[1].getBookName());
+		
+		myLibrary.printAllBorrowers();
 	}
 	
 	private void addBooks() {
