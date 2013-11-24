@@ -1,15 +1,16 @@
 public class Library {
 	private String name;
-	private int maxBooksPerUser;
-	LibraryUserMap users;
-	BookMap books;
+	private int maxBooksPerUser;	
+	private static int MAX_NO_NODES=100;
+	HashMap<String, Book> books;
+	HashMap<String, LibraryUser> users;
 	int totalBooksBorrowed;
 	
 	public Library(String name) {
 		this.name=name;
 		this.totalBooksBorrowed=0;
-		users = new LibraryUserMap(100); // the parameter sent is the max number of user for the library
-		books = new BookMap(100);
+		users  = new HashMap<String, LibraryUser>(MAX_NO_NODES); // the parameter sent is the max number of user for the library
+		books = new HashMap<String, Book>(MAX_NO_NODES);
 	}
 	
 	public String getName() {
@@ -17,14 +18,12 @@ public class Library {
 	}
 	
 	public int getID(LibraryUser user) {
-		int userID = users.shortHash(user.getName()); // it's a static method so assoc. with class
-		users.put(userID, user);
-		return userID;
+		users.put(user.getName(), user);
+		return users.getIndex(user.getName());
 	}
 	
 	public void addBooks(Book newBook) {
-		int bookID = books.shortHash(newBook.getAuthor()+newBook.getBookName());
-		books.put(bookID, newBook);
+		books.put(newBook.getAuthor()+newBook.getBookName(), newBook);
 	}
 	
 	public int getReaderCount() {
@@ -40,8 +39,7 @@ public class Library {
 	}
 	
 	public Book takeBook(String author, String bookName) {
-		int bookID = books.shortHash(author+bookName);
-		Book myBook = books.get(bookID);
+		Book myBook = books.get(author+bookName);
 		if (myBook!=null) {
 			if (myBook.isTaken()) {
 				return null;
@@ -56,20 +54,33 @@ public class Library {
 	}
 	
 	public void returnBook(String author, String bookName) {
-		int bookID = books.shortHash(author+bookName);
-		Book myBook = books.get(bookID);
+		Book myBook = books.get(author+bookName);
 		if (myBook!=null) {
 			myBook.setTaken(false);
 			totalBooksBorrowed--;
 		}
 	}
 	
-	public Book[] returnAllBooks() {
-		return books.getAll();
+	public Book[] getAllBooks() {
+       return books.getAll(Book.class); // the getAll method creates an array of the passed class i.e. book
 	}
 	
-	public LibraryUser[] returnAllUsers() {
-		return users.getAll();
+	public LibraryUser[] getAllUsers() {
+		return users.getAll(LibraryUser.class);
+	}
+	
+	public void printAllUsers() {
+		LibraryUser[] allUsers = this.getAllUsers();
+		for (int i=0; i<allUsers.length;i++) {
+			System.out.println(allUsers[i].getName());
+		}
+	}
+	
+	public void printAllBooks() {
+		Book[] allBooks = this.getAllBooks();
+		for (int i=0; i<allBooks.length;i++) {
+			System.out.println(allBooks[i].getAuthor()+","+allBooks[i].getBookName());
+		}
 	}
 	
 	public void setMaxBooksPerUser(int maxBooks) {

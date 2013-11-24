@@ -9,12 +9,10 @@ public class LibraryScript {
 		this.addBooks();
 		this.addUsers();
 		
-		Book[] allBooks = myLibrary.returnAllBooks();
-		this.printAllBooks(allBooks);
-
-		LibraryUser[] allUsers = myLibrary.returnAllUsers();
-		this.printAllUsers(allUsers);
+		myLibrary.printAllBooks();
+		myLibrary.printAllUsers();
 		
+		/*
 		allUsers[0].borrow("Aimee","My life");
 		allUsers[0].borrow("Flora","What does a fox say");
 		this.printAllBooks(allBooks);
@@ -28,18 +26,7 @@ public class LibraryScript {
 		allUsers[0].returnBook("Aimee","My life");
 		allUsers[0].returnBook("Flora","What does a fox say");
 		this.printAllBooks(allBooks);
-	}
-	
-	private void printAllUsers(LibraryUser[] allUsers) {
-		for (int i=0;i<allUsers.length;i++) {
-			System.out.println(allUsers[i].getName());
-		}
-	}
-	
-	private void printAllBooks(Book[] allBooks) {
-		for (int i=0;i<allBooks.length;i++) {
-			System.out.println(allBooks[i].getAuthor() + ":" + allBooks[i].getBookName() + Boolean.toString(allBooks[i].isTaken()));
-		}
+		*/
 	}
 	
 	private void addBooks() {
